@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,7 +19,7 @@ public class LaboratoireDto {
     private ProfesseurDto responsable;
     private double budget_annuel;
     private Set<ProfesseurDto> membres;
-    private Set<EquipeRecherche> equipe;
+    private Set<EquipeRechercheDto> equipe;
 
     public Laboratoire convertToEntity() {
         Laboratoire target = new Laboratoire();
@@ -30,7 +28,7 @@ public class LaboratoireDto {
         target.setAcronyme(this.getAcronyme());
         target.setResponsable(this.getResponsable().getId());
         target.setMembres(this.getMembres().stream().map(ProfesseurDto::getId).collect(Collectors.toSet()));
-        target.setEquipe(this.getEquipe().stream().map(EquipeRecherche::getId).collect(Collectors.toSet()));
+        target.setEquipe(this.getEquipe().stream().map(EquipeRechercheDto::getId).collect(Collectors.toSet()));
 
         return target;
     }

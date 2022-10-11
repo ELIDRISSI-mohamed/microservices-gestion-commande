@@ -13,7 +13,7 @@ public interface EquipeRestClient {
     @GetMapping("/all")
     List<ProfesseurDto> all();
     @GetMapping("/serchEquipe/{id}")
-    ProfesseurDto searchEquipeById(@PathVariable Long id);
+    ProfesseurDto searchEquipeById(@PathVariable("id") Long id);
     @GetMapping("/serchEquipeByNom/{name}")
-    ProfesseurDto searchProfesseurByName(@PathVariable String name);
+    ProfesseurDto searchProfesseurByName(@PathVariable("name") String name);
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,6 +49,11 @@ public class LaboratoireServiceImpl implements LaboratoireService {
         List<LaboratoireDto> laboratoireDtos = laboratoires.stream()
                 .map(laboratoire -> laboratoire.convertToDto())
                 .collect(Collectors.toList());
+        List<LaboratoireDto> laboratoireDtos1 = new ArrayList<>();
+        for (LaboratoireDto laboratoireDto : laboratoireDtos) {
+            laboratoireDto.setResponsable(professeurRestClient.searchProfesseurById(laboratoireDto.getId()));
+            laboratoireDtos1.add(laboratoireDto);
+        }
         return laboratoireDtos;
     }
 

@@ -1,6 +1,6 @@
 package com.laboratoirerechercheservice.model;
 
-import com.laboratoirerechercheservice.dto.EquipeRecherche;
+import com.laboratoirerechercheservice.dto.EquipeRechercheDto;
 import com.laboratoirerechercheservice.dto.LaboratoireDto;
 import com.laboratoirerechercheservice.dto.ProfesseurDto;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,7 +42,7 @@ public class Laboratoire {
                 .collect(Collectors.toSet())
         );
         target.setEquipe(this.getEquipe().stream()
-                .map(item -> new EquipeRecherche(item))
+                .map(item -> new EquipeRechercheDto(item))
                 .collect(Collectors.toSet())
         );
         return target;

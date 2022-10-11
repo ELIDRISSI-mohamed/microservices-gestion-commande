@@ -1,4 +1,4 @@
-package org.gatway.demo;
+package com.gatwayservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration;
@@ -11,14 +11,15 @@ import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class GatwayApplication {
+public class GatwayServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GatwayApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GatwayServiceApplication.class, args);
+    }
 
-	@Bean
-	DiscoveryClientRouteDefinitionLocator discoveryRoutes(ReactiveDiscoveryClient rdc, DiscoveryLocatorProperties dlp) {
-		return new DiscoveryClientRouteDefinitionLocator(rdc, dlp);
-	}
+    @Bean
+    DiscoveryClientRouteDefinitionLocator discoveryRoutes(ReactiveDiscoveryClient rdc, DiscoveryLocatorProperties dlp) {
+        return new DiscoveryClientRouteDefinitionLocator(rdc, dlp);
+    }
+
 }

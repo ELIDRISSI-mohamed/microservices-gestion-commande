@@ -12,5 +12,5 @@ public interface RubriqueRestClient {
     @GetMapping("/all")
     List<RubriqueDto> all();
     @GetMapping("/rechercheById/{id}")
-    RubriqueDto rechercher(@PathVariable Long id);
+    RubriqueDto rechercher(@PathVariable("id") Long id);
 }

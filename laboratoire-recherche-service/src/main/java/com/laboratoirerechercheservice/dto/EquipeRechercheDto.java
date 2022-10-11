@@ -9,7 +9,7 @@ import lombok.ToString;
 import java.util.List;
 
 @Data @AllArgsConstructor @NoArgsConstructor @ToString
-public class EquipeRecherche {
+public class EquipeRechercheDto {
     private Long id;
     private String nom;
     private String acronyme;
@@ -17,7 +17,7 @@ public class EquipeRecherche {
     private List<Long> membres;
     private double budget_annuel;
 
-    public EquipeRecherche(Long id){
+    public EquipeRechercheDto(Long id){
         this.id = id;
     }
 

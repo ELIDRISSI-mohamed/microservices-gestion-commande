@@ -19,6 +19,7 @@ public interface ExceptionCode {
 
     String CUSTOMER_NOT_EXIST = "CUSTOMER_NOT_EXIST";
     String Laboratoire_NOT_EXIST = "LABO_NOT_EXIST";
+    String Equipe_NOT_EXIST = "Equipe_NOT_EXIST";
     String PRODUCT_NOT_EXIST = "PRODUCT_NOT_EXIST";
     String PROFESSEUR_NOT_EXIST = "PROFESSEUR_NOT_EXIST";
     String COMMAND_NOT_PAID = "COMMAND_NOT_PAID";

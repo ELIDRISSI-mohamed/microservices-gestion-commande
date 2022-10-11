@@ -7,9 +7,11 @@ import com.equiperechercheservice.exception.TechnicalException;
 import com.equiperechercheservice.model.EquipeRecherche;
 import com.equiperechercheservice.openFeign.ProfesseurRestClient;
 import com.equiperechercheservice.repository.EquipeRechercheRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,7 +20,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class EquipeRechercheServiceImpl implements EquipeRechercheService {
+    @Autowired
     EquipeRechercheRepo equipeRechercheRepo;
+    @Autowired
     ProfesseurRestClient professeurRestClient;
 
     public EquipeRechercheServiceImpl(EquipeRechercheRepo equipeRechercheRepo, ProfesseurRestClient professeurRestClient) {
@@ -39,16 +43,23 @@ public class EquipeRechercheServiceImpl implements EquipeRechercheService {
         List<EquipeRecherche> equipeRecherches = equipeRechercheRepo.findAll();
         List<EquipeRechercheDto> equipeRechercheDtos = equipeRecherches.stream()
                 .map(equipeRecherche -> equipeRecherche.convertToDto()).collect(Collectors.toList());
-
-        return equipeRechercheDtos;
+        List<EquipeRechercheDto> equipeRechercheDtos1 = new ArrayList<>();
+        for (EquipeRechercheDto equipeRechercheDto : equipeRechercheDtos) {
+            equipeRechercheDto.setResponsable(professeurRestClient.searchProfesseurById(equipeRechercheDto.getId()));
+            equipeRechercheDtos1.add(equipeRechercheDto);
+        }
+        return equipeRechercheDtos1;
     }
     @Override
     public EquipeRechercheDto serchEquipe(Long id) throws TechnicalException {
         EquipeRecherche equipeRecherche = equipeRechercheRepo.findById(id).get();
+        EquipeRechercheDto equipeRechercheDto = new EquipeRechercheDto();
         if (equipeRecherche == null) throw new TechnicalException(ExceptionCode.Laboratoire_NOT_EXIST);
         else {
-            return equipeRecherche.convertToDto();
+            equipeRechercheDto = equipeRecherche.convertToDto();
+            equipeRechercheDto.setResponsable(professeurRestClient.searchProfesseurById(equipeRechercheDto.getId()));
         }
+        return equipeRechercheDto;
     }
     @Override
     public EquipeRechercheDto serchEquipe(String nom) throws TechnicalException {
@@ -92,7 +103,7 @@ public class EquipeRechercheServiceImpl implements EquipeRechercheService {
     public ProfesseurDto getResponsable(Long id) throws TechnicalException {
         EquipeRecherche equipeRecherche = equipeRechercheRepo.findById(id).get();
         ProfesseurDto professeurDto;
-        if (equipeRecherche == null) throw new TechnicalException(ExceptionCode.Laboratoire_NOT_EXIST);
+        if (equipeRecherche == null) throw new TechnicalException(ExceptionCode.Equipe_NOT_EXIST);
         else {
             EquipeRechercheDto equipeRechercheDto = equipeRecherche.convertToDto();
             professeurDto = professeurRestClient.searchProfesseurById(equipeRechercheDto.getResponsable().getId());

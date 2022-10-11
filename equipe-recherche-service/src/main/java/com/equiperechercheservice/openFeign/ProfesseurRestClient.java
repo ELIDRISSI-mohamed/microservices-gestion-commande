@@ -13,5 +13,5 @@ public interface ProfesseurRestClient {
     @GetMapping("/all")
     List<ProfesseurDto> all();
     @GetMapping("/getProfesseurById/{id}")
-    ProfesseurDto searchProfesseurById(@PathVariable Long id);
+    ProfesseurDto searchProfesseurById(@PathVariable("id") Long id);
 }
